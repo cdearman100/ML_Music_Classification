@@ -1,0 +1,11 @@
+Accuracy,Layers,Feature_Combo
+0.5310173630714417,1,"('tonnetz', 'chroma', 'spec_cont', 'zcr', 'mfcc')"
+0.4838709533214569,2,"('tonnetz', 'chroma', 'spec_cont', 'zcr', 'mfcc')"
+0.5111662745475769,3,"('tonnetz', 'chroma', 'spec_cont', 'zcr', 'mfcc')"
+0.5856079459190369,4,"('tonnetz', 'chroma', 'spec_cont', 'zcr', 'mfcc')"
+0.5483871102333069,1,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'mfcc')"
+0.6451612710952759,2,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'mfcc')"
+0.49379652738571167,3,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'mfcc')"
+0.6129032373428345,4,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'mfcc')"
+0.5384615659713745,1,"('tonnetz', 'spec_flux', 'spec_cont', 'spec_band', 'mfcc')"
+0.5583126544952393,2,"('tonnetz', 'spec_flux', 'spec_cont', 'spec_band', 'mfcc')"

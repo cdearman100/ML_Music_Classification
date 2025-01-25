@@ -1,5 +1,0 @@
-Accuracy,Feature Combo
-0.8333333134651184,"[['tonnetz', 'chroma'], ['tonnetz', 'spec_cont'], ['tonnetz', 'spec_cent'], ['tonnetz', 'zcr'], ['chroma', 'spec_cont'], ['chroma', 'spec_cent'], ['chroma', 'spec_band'], ['chroma', 'zcr'], ['rms', 'spec_flux'], ['rms', 'spec_cont'], ['rms', 'spec_cent'], ['rms', 'zcr'], ['spec_cont', 'zcr'], ['spec_cent', 'spec_band'], ['spec_cent', 'roll_off'], ['spec_band', 'roll_off'], ['spec_band', 'zcr'], ['roll_off', 'zcr']]"
-0.75,"[['tonnetz', 'rms'], ['rms', 'roll_off']]"
-0.9166666865348816,"[['tonnetz', 'spec_flux'], ['tonnetz', 'spec_band'], ['tonnetz', 'roll_off'], ['chroma', 'rms'], ['chroma', 'spec_flux'], ['chroma', 'roll_off'], ['rms', 'spec_band'], ['spec_flux', 'spec_cont'], ['spec_flux', 'spec_cent'], ['spec_flux', 'spec_band'], ['spec_flux', 'roll_off'], ['spec_cont', 'spec_cent'], ['spec_cont', 'spec_band'], ['spec_cont', 'roll_off'], ['spec_cent', 'zcr']]"
-1.0,"[['spec_flux', 'zcr']]"

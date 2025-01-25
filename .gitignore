@@ -1,0 +1,52 @@
+# Byte-compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+env/
+venv/
+.venv/
+pip-wheel-metadata/
+
+# Flask-specific
+instance/
+*.db
+*.sqlite3
+
+# Test cache
+.pytest_cache/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and debugging files
+*.log
+*.out
+*.err
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+.empty/
+
+# Secrets and configuration
+.env
+*.env
+
+# Build artifacts
+.cache/
+.cache-*/
+
+
+# Dependency files
+*.egg-info/
+*.whl

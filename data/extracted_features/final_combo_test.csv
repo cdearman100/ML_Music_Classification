@@ -1,0 +1,12 @@
+Accuracy,Feature_Combo
+0.6538461565971374,"('tempo', 'tonnetz', 'chroma', 'rms', 'spec_cent', 'spec_band', 'roll_off', 'mfcc')"
+0.7059553325176239,"('tonnetz', 'chroma', 'rms', 'spec_flux', 'spec_cont', 'spec_band', 'roll_off', 'mfcc')"
+0.6774193525314331,"('tonnetz', 'spec_flux', 'spec_cont', 'spec_cent', 'spec_band', 'roll_off', 'zcr', 'mfcc')"
+0.6707195997238159,"('tempo', 'tonnetz', 'chroma', 'rms', 'spec_flux', 'spec_cont', 'spec_cent', 'spec_band', 'mfcc')"
+0.6503722190856933,"('tempo', 'tonnetz', 'chroma', 'rms', 'spec_flux', 'spec_cent', 'spec_band', 'roll_off', 'mfcc')"
+0.703970217704773,"('tempo', 'tonnetz', 'spec_flux', 'spec_cont', 'spec_cent', 'spec_band', 'roll_off', 'zcr', 'mfcc')"
+0.6049627840518952,"('tempo', 'tonnetz', 'chroma', 'rms', 'spec_flux', 'spec_cont', 'spec_band', 'roll_off', 'zcr', 'mfcc')"
+0.6533498704433441,"('tempo', 'tonnetz', 'rms', 'spec_band', 'zcr', 'mfcc')"
+0.6310173630714416,"('tempo', 'rms', 'spec_flux', 'spec_cont', 'spec_band', 'mfcc')"
+0.7012406885623932,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'spec_cent', 'mfcc')"
+0.7027295231819153,"('tonnetz', 'rms', 'spec_flux', 'spec_cont', 'roll_off', 'mfcc')"
