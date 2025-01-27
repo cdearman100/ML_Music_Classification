@@ -11,7 +11,8 @@ from app.utils.file_utils import remove_features
 # from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dropout, Dense, BatchNormalization, Input
 # from tensorflow.keras import callbacks
 # from tensorflow.keras import backend as K
-from keras import models
+from tensorflow.keras.models import load_model
+
 
 
 # Emotion labels
@@ -40,7 +41,7 @@ def predict(csv: str, feat_list: list[str]):
     Returns:
         dict: Predictions for each song, including dominant emotion and probabilities.
     """
-    model = models.load_model("data/models/final_model.keras")
+    model = load_model.load_model("data/models/final_model.keras")
 
     # Load 'base' dataset
     base_df = pd.read_csv('data/extracted_features/parquet.csv')
