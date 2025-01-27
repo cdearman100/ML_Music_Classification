@@ -41,7 +41,7 @@ def predict(csv: str, feat_list: list[str]):
     Returns:
         dict: Predictions for each song, including dominant emotion and probabilities.
     """
-    model = load_model.load_model("data/models/final_model.keras")
+    model = load_model.load_model("data/models/final_model.h5")
 
     # Load 'base' dataset
     base_df = pd.read_csv('data/extracted_features/parquet.csv')
