@@ -11,7 +11,7 @@ from app.utils.file_utils import remove_features
 # from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dropout, Dense, BatchNormalization, Input
 # from tensorflow.keras import callbacks
 # from tensorflow.keras import backend as K
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 
 
