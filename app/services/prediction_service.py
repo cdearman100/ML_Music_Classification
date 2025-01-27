@@ -6,11 +6,11 @@ import csv
 import pandas as pd
 from scipy.stats import skew, kurtosis
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dropout, Dense, BatchNormalization, Input
-from tensorflow.keras import callbacks
-from tensorflow.keras import backend as K
+from app.utils.file_utils import remove_features
+# from tensorflow.keras.models import Sequential, Model
+# from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dropout, Dense, BatchNormalization, Input
+# from tensorflow.keras import callbacks
+# from tensorflow.keras import backend as K
 from keras import models
 
 
@@ -27,32 +27,6 @@ FEATURE_NAMES = [
     'spec_cent', 'spec_band', 'roll_off', 'zcr', 'mfcc'
 ]
 
-
-def remove_features(df: pd.DataFrame, feat_list: list[str]) -> pd.DataFrame:
-    """
-    Removes features from a DataFrame that are not included in the feature list.
-
-    Args:
-        df (pd.DataFrame): DataFrame containing extracted features from audio files.
-        feat_list (list[str]): List of features to retain in the DataFrame. Others will be removed.
-
-    Returns:
-        pd.DataFrame: Updated DataFrame with specified features removed.
-    """
-    # Determine features to remove
-    feats_to_remove = list(set(FEATURE_NAMES).difference(feat_list))
-
-    # Drop unnecessary columns
-    for column in ['filename', 'audio_array', 'sampling_rate', 'feeling', 'emotion']:
-        if column in df.columns:
-            df = df.drop(column, axis=1)
-
-    # Drop features not in the feature list
-    for feat in feats_to_remove:
-        cols_to_drop = df.columns[df.columns.str.contains(feat)]
-        df.drop(cols_to_drop, axis=1, inplace=True)
-
-    return df
 
 
 def predict(csv: str, feat_list: list[str]):
@@ -120,82 +94,3 @@ def predict(csv: str, feat_list: list[str]):
     return formatted_output
 
 
-def create_model(csv_file: str, feat_list: list[str], model_name: str):
-    """
-    Creates and trains a convolutional neural network (CNN) for emotion prediction.
-
-    Args:
-        csv_file (str): Path to the CSV file containing song features.
-        feat_list (list[str]): List of features to include in the model.
-        model_name (str): Name of the file to save the trained model.
-
-    Returns:
-        None
-    """
-    data = pd.read_csv('data/extracted_features/parquet.csv')
-    data = remove_features(data, feat_list)
-
-    # Prepare features and labels
-    x = np.array(data.iloc[:, 1:], dtype=float)
-    y = np.array(pd.get_dummies(data.iloc[:, 0]))
-
-    # Split into train and test sets
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
-
-    # Scale the features
-    scaler = MinMaxScaler()
-    x_train_scaled = scaler.fit_transform(x_train)
-    x_test_scaled = scaler.transform(x_test)
-
-    # Train the model
-    my_model = get_conv_model(x_train_scaled, x_test_scaled, y_train, y_test, 3, 64, 64, 64, 3, 5, 7, 32, 'categorical_crossentropy')
-    my_model.save(model_name)
-
-
-def get_conv_model(x_train, x_test, y_train, y_test, num_layers, f1, f2, f3, k1, k2, k3, d, loss, metrics='accuracy'):
-    """
-    Builds and trains a convolutional neural network (CNN) for emotion prediction.
-
-    Args:
-        x_train (ndarray): Training feature set.
-        x_test (ndarray): Testing feature set.
-        y_train (ndarray): Training labels.
-        y_test (ndarray): Testing labels.
-        num_layers (int): Number of convolutional layers in the network.
-        f1, f2, f3 (int): Filters for each convolutional layer.
-        k1, k2, k3 (int): Kernel sizes for each convolutional layer.
-        d (int): Dropout rate.
-        loss (str): Loss function for the model.
-        metrics (str): Metrics to evaluate the model during training.
-
-    Returns:
-        Sequential: Trained Keras model.
-    """
-    K.clear_session()
-    model = Sequential()
-
-    # Input layer
-    model.add(Input(shape=(x_train.shape[1], 1)))
-
-    # Add convolutional layers
-    for i in range(1, num_layers):
-        model.add(Conv1D(f1, k1, activation='relu', padding='same'))
-        model.add(BatchNormalization(name=f'BN{i}'))
-        model.add(MaxPooling1D(pool_size=2, name=f'MaxPooling{i}'))
-
-    # Add fully connected layers
-    model.add(Flatten())
-    model.add(Dense(64, activation='relu'))
-    model.add(Dropout(0.2))
-    model.add(Dense(y_train.shape[1], activation='softmax'))
-
-    # Compile the model
-    model.compile(loss=loss, metrics=[metrics], optimizer='adam')
-
-    # Early stopping callback
-    earlystopping = callbacks.EarlyStopping(monitor="val_loss", mode="min", patience=10, restore_best_weights=True, verbose=1)
-
-    # Train the model
-    model.fit(x_train, y_train, epochs=100, batch_size=16, validation_data=(x_test, y_test), callbacks=earlystopping)
-
-    return model

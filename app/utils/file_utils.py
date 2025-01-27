@@ -17,6 +17,33 @@ FEATURE_NAMES = [
 # List of statistical metrics to calculate for each audio feature
 STATS = ['mean', 'var', 'std', 'median', 'min', 'max']
 
+def remove_features(df: pd.DataFrame, feat_list: list[str]) -> pd.DataFrame:
+    """
+    Removes features from a DataFrame that are not included in the feature list.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing extracted features from audio files.
+        feat_list (list[str]): List of features to retain in the DataFrame. Others will be removed.
+
+    Returns:
+        pd.DataFrame: Updated DataFrame with specified features removed.
+    """
+    # Determine features to remove
+    feats_to_remove = list(set(FEATURE_NAMES).difference(feat_list))
+
+    # Drop unnecessary columns
+    for column in ['filename', 'audio_array', 'sampling_rate', 'feeling', 'emotion']:
+        if column in df.columns:
+            df = df.drop(column, axis=1)
+
+    # Drop features not in the feature list
+    for feat in feats_to_remove:
+        cols_to_drop = df.columns[df.columns.str.contains(feat)]
+        df.drop(cols_to_drop, axis=1, inplace=True)
+
+    return df
+
+
 def write_parquet_csv():
     """
     Creates a CSV file from a parquet dataset hosted on Hugging Face.
