@@ -1,7 +1,9 @@
 datasets==3.1.0
 Flask==3.1.0
 librosa==0.10.1
-numpy==2.2.2
+numpy>=1.25,<1.26
+llvmlite==0.41.0
+numba==0.58.0
 onnxruntime==1.19.2
 pandas==2.2.3
 pydub==0.25.1
