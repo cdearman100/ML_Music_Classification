@@ -1,6 +1,7 @@
 import logging
 import os
 import subprocess
+import time
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -41,15 +42,9 @@ def download_spotify_track(spotify_url):
 
     try:
         result = subprocess.run(
-            ["spotify_dl", "-l", spotify_url, "-o", output_directory],
-            capture_output=True,
-            text=True,
-            env={
-                **os.environ,
-                "SPOTIPY_CLIENT_ID": client_id,
-                "SPOTIPY_CLIENT_SECRET": client_secret,
-            }
-        )
+                ["spotdl", spotify_url, "--output", os.path.join(output_directory, "%(title)s.%(ext)s")],
+            )
+        
 
         if result.returncode != 0:
             raise SpotifyDownloadError(
@@ -86,6 +81,8 @@ def download_spotify_track(spotify_url):
             message="An unexpected error occurred while downloading the Spotify track.",
             details={"exception": str(e)}
         )
+
+
 
 
 def get_artist(name):
@@ -247,7 +244,7 @@ def process_song(spotify_url):
         shutil.rmtree('data/downloaded_songs')
         
         
-
+        
         # Predict emotions
         emotion_data = predict(
             csv_file,
@@ -286,6 +283,8 @@ def process_playlist(playlist_url):
     try:
         # Retrieve all track URLs from the playlist
         track_urls = get_playlist_tracks(playlist_url)
+
+        
         if not track_urls:
             raise SpotifyDownloadError(
                 message="No tracks found in the Spotify playlist.",
@@ -295,6 +294,7 @@ def process_playlist(playlist_url):
         # Process each song
         for spotify_url in track_urls:
             try:
+                
                 # Download the track
                 audio_file_path = download_spotify_track(spotify_url)
 

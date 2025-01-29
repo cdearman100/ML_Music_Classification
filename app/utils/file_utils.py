@@ -31,10 +31,12 @@ def remove_features(df: pd.DataFrame, feat_list: list[str]) -> pd.DataFrame:
     # Determine features to remove
     feats_to_remove = list(set(FEATURE_NAMES).difference(feat_list))
 
+
     # Drop unnecessary columns
     for column in ['filename', 'audio_array', 'sampling_rate', 'feeling', 'emotion']:
         if column in df.columns:
             df = df.drop(column, axis=1)
+    
 
     # Drop features not in the feature list
     for feat in feats_to_remove:
